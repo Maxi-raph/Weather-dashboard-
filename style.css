@@ -1,0 +1,154 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+body {
+    font-size: 15pt;
+    margin-top: 160px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url( /img/miguel-angel-padrinan-alba-q1Vb0sT56Ps-unsplash.jpg);
+    height:100vh;
+}
+.container{
+    width:90%;
+    margin: auto;
+    height:450px;
+    border-radius: 15px;
+    background-color:rgba(0,0,0, 0.3);
+    padding: 10px;
+}
+.hero{
+    text-align: center;
+    margin-top: 5px;
+    
+}
+.head-text{
+    font-size: 30px;
+    font-family:monospace;
+    color: #FFB347;
+}
+.para-text{
+    margin-top: 2px;
+    margin-bottom: 14px;
+    font-size: 17px;
+    color:white;
+    font-family:serif;
+}
+.search-bar{
+    margin: auto;
+    width: 95%;
+    height:45px;
+    position: relative;
+}
+.input{
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius:30px 0 0 30px;
+    height: 100%;
+    width: 75%;
+    outline: none;
+    border: none;
+    padding-left:20px;
+    font-size:18px;
+    font-family:monospace;
+    background-color: rgba(189, 189, 189, 0.5);
+    color: rgba(255, 255, 255, 1);
+}
+.btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius:0 30px 30px 0;
+    height: 100%;
+    width: 25%;  
+    border: none;
+    font-size:20px;
+    background-color:#FFB347;
+}
+.weather-card{
+    margin: 24px auto 0 auto;
+    padding:15px;
+    width: 95%;
+    height: 110px;
+    background-color:rgba(68, 68, 68, 0.3);
+    border-radius:15px;
+}
+.current-weather{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}
+.weather-icon{
+    width:70px;
+    height:70px;
+    
+}
+.info{
+    
+}
+.city{
+    font-size: 27px;
+    font-family: monospace;
+    color:#FFB347;
+    text-align: center;
+}
+.temp-flex{
+    display:flex;
+    color:black;
+    gap: 5px;
+}
+.high{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+.low{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+.desc{
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+.forecast{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap:7px;
+    justify-content: space-between;
+    margin: 30px auto 0px auto;
+    width: 100%;
+}
+.day{
+    width:100% ;
+    height:110px;
+    border-radius:7px;
+    background-color: rgba(68, 68, 68, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 2px;
+}
+.weekday{
+    font-size: 19px;
+    font-weight: bold;
+    color: #FFB347 ;
+}
+.icon{
+    width:50px;
+    height:50px;
+    border-radius: 50%;
+}
+.temp{
+    font-size: 19px;
+    font-weight: bold;
+    color: white;
+}
