@@ -1,17 +1,10 @@
 // define variables //
 const input = document.querySelector('.input')
 const search = document.querySelector('.btn')
-const  mainIcon = document.querySelector('.weather-icon')
-const cityname = document.querySelector('.city') 
-const hightemp = document.querySelector('.high')
-const lowtemp = document.querySelector('.low')
-const description = document.querySelector('.desc')
-const days = document.querySelectorAll('.weekday')
-const icons = document.querySelectorAll('.icon')
-const temps = document.querySelectorAll('.temp')
 const forecastbox = document.querySelector('.forecast')
 const weatherCard = document.querySelector('.weather-card')
 const apikey = '069ae01f7f8a77b2db2e1fea01356b1f'
+
 // handle error for the fetch api before returning json //
 function handleres(res) {
   if (!res.ok) {
@@ -29,11 +22,15 @@ input.addEventListener('input', () =>{
 // add a listener to the button to fetch the api's and then display the contents //
 search.addEventListener('click', ()=>{
   if (input.value.trim() == '')return
+  // clear any previous api call content //
+  forecastbox.innerHTML = ''
+  weatherCard.innerHTML = ''
   // input api url's //
   const forecasturl = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(input.value)}&appid=${apikey}&units=metric`
 const weatherurl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(input.value)}&appid=${apikey}&units=metric`;
   // fetch api //
 Promise.all([fetch(forecasturl).then(handleres), fetch(weatherurl).then(handleres)])
+
   // handle errors //
   .then(([foredata,weatherdata]) => {
     if (Number(foredata.cod) !== 200) {
@@ -43,22 +40,38 @@ Promise.all([fetch(forecasturl).then(handleres), fetch(weatherurl).then(handlere
   throw new Error(weatherdata.message || "City not found!");
 }
    // append details to the html using dom manipulation //
-  const imgcode = weatherdata.weather[0].icon
-  mainIcon.setAttribute('src',`https://openweathermap.org/img/wn/${imgcode}@2x.png`)
-   cityname.textContent = weatherdata.name
-   hightemp.textContent = `High: ${weatherdata.main.temp_max}°C`
-   lowtemp.textContent = `Low: ${weatherdata.main.temp_min}°C`
-   description.textContent = weatherdata.weather[0].description
+   const imgcode = weatherdata.weather[0].icon
+   let section = document.createElement('section')
+    section.className = 'current-weather'
+    section.innerHTML = `
+    <img class="weather-icon" src="https://openweathermap.org/img/wn/${imgcode}@2x.png" alt="img">
+       <div class="info">
+         <h2 class="city">${weatherdata.name}</h2>
+         <div class="temp-flex">
+           <p class="high">High: ${weatherdata.main.temp_max}°C</p>
+           <p class="low">Low: ${weatherdata.main.temp_min}°C</p>
+         </div>
+         <p class="desc">${weatherdata.weather[0].description}</p>
+       </div>
+    `
+    weatherCard.appendChild(section)
     // loop through the days to input the details for the days, icons and temps at once //
-   days.forEach((day,index) =>{
-   let num = index  
-    num++
-    let data = foredata.list[num * 8]
-    let icon = data.weather[0].icon
-    day.textContent = new Date(data.dt_txt).toLocaleDateString('en-US', { weekday: 'short' });
-    icons[index].setAttribute('src',`https://openweathermap.org/img/wn/${icon}@2x.png`)
-    temps[index].textContent = `${data.main.temp}°C`
-   })
+    foredata.list.forEach((data,i)=>{
+      console.log()
+      if (i == 8 || i == 16 || i == 24 || i == 32) {
+        console.log(data)
+  let icon = data.weather[0].icon
+let day = document.createElement('div')
+day.className = 'day'
+day.innerHTML = `
+        <p class="weekday">${new Date(data.dt_txt).toLocaleDateString('en-US', { weekday: 'short' })}</p>
+         <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="" class="icon" />
+         <p class="temp">${data.main.temp}°C</p>
+        `
+        forecastbox.appendChild(day)
+      }
+      
+    })
    // display the containers //
    forecastbox.style.display = 'grid'
    weatherCard.style.display = 'block'

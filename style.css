@@ -70,19 +70,18 @@ body {
 }
 .weather-card{
     margin: 24px auto 0 auto;
-    padding:15px;
+    padding:10px;
     width: 95%;
-    height: 110px;
     background-color:rgba(68, 68, 68, 0.3);
     border-radius:15px;
 }
 .current-weather{
     display: flex;
     gap: 10px;
+    justify-content:space-around;
     align-items: center;
-    height: 100%;
     width: 100%;
-    padding: 10px;
+    padding: 0px 5px 10px 5px;
 }
 .weather-icon{
     width:70px;
