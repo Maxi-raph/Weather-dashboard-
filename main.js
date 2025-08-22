@@ -19,20 +19,24 @@ input.addEventListener('input', () =>{
   weatherCard.style.display = 'none'
   }
 })
+let currentRequest = 0
 // add a listener to the button to fetch the api's and then display the contents //
+
 search.addEventListener('click', ()=>{
-  if (input.value.trim() == '')return
+  if (input.value.trim() === '')return
   // clear any previous api call content //
   forecastbox.innerHTML = ''
   weatherCard.innerHTML = ''
+  let requestId = ++currentRequest
+  console.log(currentRequest,requestId)
   // input api url's //
   const forecasturl = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(input.value)}&appid=${apikey}&units=metric`
 const weatherurl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(input.value)}&appid=${apikey}&units=metric`;
   // fetch api //
 Promise.all([fetch(forecasturl).then(handleres), fetch(weatherurl).then(handleres)])
-
   // handle errors //
   .then(([foredata,weatherdata]) => {
+    if (requestId !== currentRequest)return
     if (Number(foredata.cod) !== 200) {
       throw new Error(foredata.message || "City not found!");
     }
@@ -57,9 +61,7 @@ Promise.all([fetch(forecasturl).then(handleres), fetch(weatherurl).then(handlere
     weatherCard.appendChild(section)
     // loop through the days to input the details for the days, icons and temps at once //
     foredata.list.forEach((data,i)=>{
-      console.log()
       if (i == 8 || i == 16 || i == 24 || i == 32) {
-        console.log(data)
   let icon = data.weather[0].icon
 let day = document.createElement('div')
 day.className = 'day'
